@@ -1,0 +1,224 @@
+<!--
+  ~ Copyright (c) 2016 Uber Technologies, Inc. (streaming-core@uber.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.uber.Chaperone</groupId>
+    <artifactId>ChaperoneDistribution</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>ChaperoneDistribution</name>
+    <parent>
+        <artifactId>Chaperone</artifactId>
+        <groupId>com.uber.Chaperone</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <description>
+        A distribution for this project, including example scripts to launch
+        ChaperoneServiceController, ChaperoneServiceWorker and ChaperoneCollector
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.uber.Chaperone</groupId>
+            <artifactId>ChaperoneServiceController</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.uber.Chaperone</groupId>
+            <artifactId>ChaperoneServiceWorker</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.uber.Chaperone</groupId>
+            <artifactId>ChaperoneClient</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.uber.Chaperone</groupId>
+            <artifactId>ChaperoneCollector</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <argLine>-Xmx2g</argLine>
+                    <!-- Do not set argLine here, it will break the code coverage plugin.
+                        Set it in the properties section. -->
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.5</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>
+                                com.uber.stream.kafka.chaperone.starter.ChaperoneStarter
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <configuration>
+                    <programs>
+                        <program>
+                            <mainClass>
+                                com.uber.stream.kafka.chaperone.starter.ChaperoneStarter
+                            </mainClass>
+                            <id>start-chaperone-controller</id>
+                            <jvmSettings>
+                                <extraArgument>-Dapp_name=ChaperoneServiceController</extraArgument>
+                            </jvmSettings>
+                            <commandLineArguments>
+                                <commandLineArgument>startChaperoneServiceController -example2
+                                </commandLineArgument>
+                            </commandLineArguments>
+                        </program>
+                        <program>
+                            <mainClass>
+                                com.uber.stream.kafka.chaperone.starter.ChaperoneStarter
+                            </mainClass>
+                            <id>start-chaperone-worker</id>
+                            <jvmSettings>
+                                <extraArgument>-Dapp_name=ChaperoneServiceWorker</extraArgument>
+                            </jvmSettings>
+                            <commandLineArguments>
+                                <commandLineArgument>startChaperoneServiceWorker \
+                                    kafka.mirrormaker.MirrorMakerWorker --chaperone.config \
+                                    config/chaperoneservice.properties --consumer.config \
+                                    config/consumer.properties --producer.config \
+                                    config/producer.properties --helix.config \
+                                    config/helix.properties
+                                </commandLineArgument>
+                            </commandLineArguments>
+                        </program>
+                        <program>
+                            <mainClass>
+                                com.uber.stream.kafka.chaperone.starter.ChaperoneStarter
+                            </mainClass>
+                            <id>start-chaperone-collector</id>
+                            <jvmSettings>
+                                <extraArgument>-Dapp_name=ChaperoneCollector</extraArgument>
+                                <extraArgument>-Dconfig.file=config/chaperonecollector.properties
+                                </extraArgument>
+                            </jvmSettings>
+                            <commandLineArguments>
+                                <commandLineArgument>startChaperoneCollector \
+                                    com.uber.stream.kafka.chaperone.collector.KafkaIngester
+                                </commandLineArgument>
+                            </commandLineArguments>
+                        </program>
+                    </programs>
+                    <binFileExtensions>
+                        <unix>.sh</unix>
+                    </binFileExtensions>
+                    <!-- Set the target configuration directory to be used in the bin scripts -->
+                    <configurationDirectory>conf</configurationDirectory>
+                    <!-- Copy the contents from "/src/main/config" to the target configuration
+                        directory in the assembled application -->
+                    <copyConfigurationDirectory>false</copyConfigurationDirectory>
+                    <!-- Include the target configuration directory in the beginning of
+                        the classpath declaration in the bin scripts -->
+                    <includeConfigurationDirectoryInClasspath>false
+                    </includeConfigurationDirectoryInClasspath>
+                    <assembleDirectory>${project.build.directory}/${project.artifactId}-pkg
+                    </assembleDirectory>
+                    <!-- Extra JVM arguments that will be included in the bin scripts -->
+                    <extraJvmArguments>-Xms512m -Xmx512m</extraJvmArguments>
+                    <!-- Generate bin scripts for windows and unix pr default -->
+                    <platforms>
+                        <platform>unix</platform>
+                    </platforms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
