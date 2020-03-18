@@ -1,5 +1,7 @@
 Chaperone
 ============
+(This project is deprecated and not maintained.)
+
 As Kafka audit system, Chaperone monitors the completeness and latency of data stream. The audit metrics are persisted in database for Kafka users to quantify the loss of their topics if any.
 
 Basically, Chaperone cuts timeline into 10min buckets and assigns message to corresponding bucket according to its event time. The stats of the bucket are updated accordingly, like the total message count. Periodically, the stats are sent out to a dedicated Kafka topic, say 'chaperone-audit'. ChaperoneCollector consumes those stats from this topic and persists them into database.
