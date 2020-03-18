@@ -131,7 +131,7 @@
         <kafka.version>0.9.0.0</kafka.version>
         <helix.version>0.6.5</helix.version>
         <yammer.version>2.2.0</yammer.version>
-        <zookeeper.version>3.4.6</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <zkclient.version>0.5</zkclient.version>
         <jopt-simple.version>3.2</jopt-simple.version>
         <junit.version>4.6</junit.version>
