@@ -53,7 +53,7 @@
         <jetty.version>8.1.8.v20121106</jetty.version>
         <apache.http.version>4.1.2</apache.http.version>
         <io.dropwizard.metrics.version>3.1.1</io.dropwizard.metrics.version>
-        <fastjson.version>1.1.41</fastjson.version>
+        <fastjson.version>1.2.25</fastjson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
