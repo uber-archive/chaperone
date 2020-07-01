@@ -49,7 +49,7 @@
         <disruptor.version>3.3.2</disruptor.version>
         <jedis.version>2.8.0</jedis.version>
         <dbcp2.version>2.1.1</dbcp2.version>
-        <mysql.jdbc.version>5.1.18</mysql.jdbc.version>
+        <mysql.jdbc.version>8.0.16</mysql.jdbc.version>
         <apache.math.version>3.4.1</apache.math.version>
     </properties>
 
