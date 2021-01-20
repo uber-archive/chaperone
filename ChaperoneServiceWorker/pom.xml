@@ -230,7 +230,7 @@
         <disruptor.version>3.3.2</disruptor.version>
         <dbcp2.version>2.1.1</dbcp2.version>
         <hsqldb.version>2.3.3</hsqldb.version>
-        <jackson.version>2.4.3</jackson.version>
+        <jackson.version>2.12.1</jackson.version>
         <restlet.version>2.2.1</restlet.version>
         <testng.version>6.0.1</testng.version>
         <commons.config.version>1.6</commons.config.version>
